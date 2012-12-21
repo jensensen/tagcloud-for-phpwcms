@@ -36,7 +36,7 @@ Author
 
 **jensensen**
 
-+ <http://forum.phpwcms.org/>
++ <http://forum.phpwcms.org/viewtopic.php?f=8&t=16761>
 + <http://github.com/jensensen/>
 
 
