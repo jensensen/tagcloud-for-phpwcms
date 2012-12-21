@@ -3,8 +3,8 @@ TagCloud for phpwcms
 
 by using this script you get a tagcloud [html-output] for phpwcms. phpwcms is created and maintained by [Oliver Georgi](http://twitter.com/slackero).
 
-Read also <http://phpwcms.org> and Knut's (aka flip-flop's)
-[HowTo Wiki](http://www.phpwcms-howto.de/wiki/) and:
+Read also <http://phpwcms.org> and 
+Knut's (aka flip-flop's) [HowTo Wiki](http://www.phpwcms-howto.de/wiki/) and:
 ==> RTFM: http://forum.phpwcms.org/viewtopic.php?f=8&t=16761
 
 
@@ -27,8 +27,7 @@ Have a bug? Please create an issue here on GitHub that conforms with [necolas's 
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999)
-(http://www.facebook.com/jens.bruckner.98).
+Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999) [Facebook](https://www.facebook.com/jens.bruckner.98).
 
 
 
