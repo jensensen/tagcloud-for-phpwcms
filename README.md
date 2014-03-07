@@ -29,8 +29,6 @@ Share with us
 
 Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999) [Facebook](https://www.facebook.com/jens.bruckner.98).
 
-
-
 Author
 ------
 
@@ -39,20 +37,17 @@ Author
 + <http://forum.phpwcms.org/viewtopic.php?f=8&t=16761>
 + <http://github.com/jensensen/>
 
-
-
 Copyright and license
 ---------------------
 
-Copyright 2009–2012 jensensen
+Copyright 2008–2014 jensensen
 
-This work - tagcloud for phpwcms by jensensen (jbr/LH/DE) - is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+This work - **tagcloud for phpwcms** by jensensen (jbr/LH/DE) - is licensed under a 
 
-   <http://creativecommons.org/licenses/by-sa/3.0/deed.en_US>
+[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](http://creativecommons.org/licenses/by-sa/4.0/) License. ![License:CC BY-SA 4.0](http://i.creativecommons.org/l/by-sa/4.0/88x31.png)
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the CC License as published and as long as others share alike.
+This program is free software. You can redistribute it and/or modify it under the terms of the CC License as published and as long as others share alike.
 
 This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
+but **WITHOUT ANY WARRANTY** and without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
