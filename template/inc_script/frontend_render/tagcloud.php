@@ -1,8 +1,8 @@
 <?php
 /******************************************************************
-* TagCloud v2.1 for phpwcms --> v1.4.x
+* TagCloud v2.2 for phpwcms --> v1.4.x
 *
-* Date: Dec. 21, 2009 by Jensensen
+* Date: Jun. 25, 2014 by Jensensen
 * ==> RTFM: http://forum.phpwcms.org/viewtopic.php?f=8&t=16761
 *
 * Script returns <div MY_class>Your TagCloud here</div> only on pages
@@ -271,7 +271,7 @@ function make_cloud($matches) {
 	$tagtext = stripped_cache_content($tagtext);
 	
 	//delete not wantend and then str_all to lower
-	if(seems_utf8($tagtext)) {
+	if(phpwcms_seems_utf8($tagtext)) {
 		$tagtext = strtolower_utf8( str_replace($conf['del_signs'], '', $tagtext) );
 	} else {
 		$tagtext = strtolower( str_replace($conf['del_signs'], '', $tagtext) );
