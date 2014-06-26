@@ -1,30 +1,19 @@
-TagCloud for phpwcms
-====================
+#TagCloud v2.3 for phpwcms v1.7.2+#
 
-by using this script you get a tagcloud [html-output] for phpwcms. phpwcms is created and maintained by [Oliver Georgi](http://twitter.com/slackero).
+##Description:##
+By using this script you get a tagcloud [html-output] for phpwcms. phpwcms is created and maintained by [Oliver Georgi](http://twitter.com/slackero).
 
-Read also <http://phpwcms.org> and 
-Knut's (aka flip-flop's) [HowTo Wiki](http://www.phpwcms-howto.de/wiki/) and:
-==> RTFM: http://forum.phpwcms.org/viewtopic.php?f=8&t=16761
+**Basics** to read ==> RTFM: http://forum.phpwcms.org/viewtopic.php?f=8&t=16761
 
-
-
-Quick start
------------
+###Quick start###
 Clone the repo, `git clone git://github.com/jensensen/tagcloud-for-phpwcms.git`.
 
-
-
-Bug tracker
------------
-
+###Bug tracker###
 Have a bug? Please create an issue here on GitHub that conforms with [necolas's guidelines](https://github.com/necolas/issue-guidelines).
 
 <https://github.com/jensensen/tagcloud-for-phpwcms/issues>
 
-
-
-Share with us
+Share with us and me
 -------------
 
 Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999) [Facebook](https://www.facebook.com/jens.bruckner.98).
@@ -32,10 +21,10 @@ Keep up to date on announcements and more by following **phpwcms** on Twitter [@
 Author
 ------
 
-**jensensen**
-
-+ <http://forum.phpwcms.org/viewtopic.php?f=8&t=16761>
-+ <http://github.com/jensensen/>
+### jensensen ###
+* <http://forum.phpwcms.org/viewtopic.php?f=8&t=17891>
+* <http://github.com/jensensen/>
+* <https://www.facebook.com/jens.bruckner.98>
 
 Copyright and license
 ---------------------

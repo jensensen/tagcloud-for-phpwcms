@@ -1,15 +1,16 @@
 <?php
 /******************************************************************
-* TagCloud v2.2 for phpwcms --> v1.4.x
+* TagCloud v2.3 for phpwcms --> v1.7.2 ++
 *
-* Date: Jun. 25, 2014 by Jensensen
+* Date: Jun. 26, 2014 by Jensensen
 * ==> RTFM: http://forum.phpwcms.org/viewtopic.php?f=8&t=16761
 *
 * Script returns <div MY_class>Your TagCloud here</div> only on pages
 * where the RT {TAGCLOUD:...} was found somewhere in the page code.
 *
 * CREDITS {big 'thank you' to}:
-* marcus@localhorst, Heiko H., marketingmensch, flip-flop, OG, claus
+* marcus@localhorst, Heiko H., marketingmensch, flip-flop, OG, claus, 
+* nameless1, Old Boy
 *
 * USAGE:
 *   -> Edit some variables --> see below
@@ -22,16 +23,11 @@
 *
 *      0,2,17 ==> IDs of Site structure levels / categories to 'cloud'
 *
-*      Decide where cloud tags are linked to:
+* Decide where cloud tags are linked to:
 *      L ==> LANDING PAGE (separate page outside categories above)
 *      S ==> phpwcms SEARCH PAGE
 *
 *      9 ==> Artikel ID of your LANDING PAGE or SEARCH PAGE!!!
-*
-*   -> Place this script into
-*      /template/inc_script/frontend_render/
-*	-> For various TC font sizes copy the CSS file to
-*      /template/inc_css/specific/tagcloud.css
 *
 * LANDING PAGE: only necessary when you use e.g. {    L:7}
 *   -> ADD a separate article/page (which must be manually prepared
@@ -41,11 +37,16 @@
 *   Add CP HTML or any other and place an anchor on top of each CP
 *   for each tag of the Tag Cloud:
 *   <a name="TAG" id="TAG"></a><p>Read more about TAG...</p>
-*
+* #################################################################
+*   -> Place this script into
+*      /template/inc_script/frontend_render/
+*	-> For various TC font sizes copy the CSS file to
+*      /template/inc_css/specific/tagcloud.css
+* #################################################################
 * TO DO
 * any idea?
 *
-* minor changes
+* DONE: code optimization
 * ****************************************************************/
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -65,14 +66,15 @@ $content['tagcloud'] = array(
 	'showCount'		=> 1,		// display count next to tag --> can be 0=No or 1=Yes
 
 	// Now choose which elements you want to include into match
-	// just --> comment for --> NO include
+	// 1 = add OR 0 = ignored --> NO include
 	'add_t'			=> 1,		// article title
-	//'add_st'		=> 1,		// article subtitle
+	'add_st'		=> 1,		// article subtitle
 	'add_sm'		=> 1,		// article summary
 	
 	// and now do the same for other page elements --> Content Parts (CP)
+	// 1 = add OR 0 = ignored --> NO include
 	'add_cpt'		=> 1,		// CP titles
-	//'add_cpst'	=> 1,		// CP subtitles
+	'add_cpst'		=> 1,		// CP subtitles
 	'add_cptximg'	=> 1,		// CP Text (html) with image
 	
 	// Add NEWS --> YES =1 or NO =0
@@ -115,7 +117,7 @@ $content['tagcloud'] = array(
 *****************************************************************/
 function make_cloud($matches) {
 	
-	global $phpwcms, $content;	
+	global $phpwcms, $content;
 	// use $matches for 
 	// $rendermode,$which_ID,$setLP,$landing
 	
@@ -127,19 +129,18 @@ function make_cloud($matches) {
 	$conf = & $content['tagcloud'];
 
 	// check integrity of user_settings --- else use defaults +++ OG new style
-	if(empty($conf['min'])) {
-		$conf['min'] = 4;
-	}
-	if(empty($conf['min_chars'])) {
-		$conf['min_chars'] = 4;
-	}
-	if(!isset($conf['sort'])) {
-		$conf['sort'] = false;
-	}
-	if(empty($conf['inc_or_ex'])) {
-		$conf['inc_or_ex'] = 0;
-	}
-	
+	if(empty($conf['min'])) {$conf['min'] = 4;}
+	if(empty($conf['min_chars'])) {$conf['min_chars'] = 4;}
+	if(!isset($conf['sort'])) {$conf['sort'] = false;}
+	if(empty($conf['inc_or_ex'])) {$conf['inc_or_ex'] = 0;}
+	// avoid php notice: undefined variable
+	if(empty($allmyhds)) {$allmyhds = '';}
+	if(empty($allmycps)) {$allmycps = '';}
+	if(empty($at)) {$at = '';}
+	if(empty($ast)) {$ast = '';}
+	if(empty($asm)) {$asm = '';}
+	// avoid php notice: undefined index
+	//if(isset($conf['add_t'])) {$auswert_t = $conf['add_t'];}
 	
 	// NOW, FINALLY IT'S TIME TO LET A FRESH BREEZE BLOWING UP PRETTY CLOUDS
 	if(!empty($landing)) {
@@ -202,9 +203,9 @@ function make_cloud($matches) {
 	if(is_array($only_cat_id)) {
 	   foreach ($only_cat_id as $slid) {
 	   $sql = "SELECT SQL_CACHE article_id";
-	   if(isset($conf['add_t'])) {$sql .= ",article_title";}
-	   if(isset($conf['add_st'])) {$sql .= ",article_subtitle";}
-	   if(isset($conf['add_sm'])) {$sql .= ",article_summary";}
+	   if ($conf['add_t']) {$sql .= ",article_title";}
+	   if ($conf['add_st']) {$sql .= ",article_subtitle";}
+	   if ($conf['add_sm']) {$sql .= ",article_summary";}
 	   $sql .= " FROM ".DB_PREPEND."phpwcms_article WHERE article_cid=$slid";
 	   $sql .= " AND article_public=1 AND article_aktiv=1 AND article_deleted=0";
 	   $sql .= " AND article_begin < NOW() AND article_end > NOW()";
@@ -213,16 +214,16 @@ function make_cloud($matches) {
 
 		  foreach($result as $row) {
 		  $ai = $row['article_id'];
-		  $at = $row['article_title'];
-		  $ast = $row['article_subtitle'];
-		  $asm = $row['article_summary'];
+		  if ($conf['add_t']) {$at = $row['article_title'];}
+		  if ($conf['add_st']) {$ast = $row['article_subtitle'];}
+		  if ($conf['add_sm']) {$asm = $row['article_summary'];}
 		  
 		  $allmyhds .= $at.' '.$ast.' '.$asm.' ';
 	
 		  $sec_sql  = "SELECT SQL_CACHE acontent_html";
-		  if(isset($conf['add_cpt'])) {$sec_sql .= ",acontent_title";}
-		  if(isset($conf['add_cpst'])) {$sec_sql .= ",acontent_subtitle";}
-		  if(isset($conf['add_cptximg'])) {$sec_sql .= ",acontent_text";}
+		  if ($conf['add_cpt']) {$sec_sql .= ",acontent_title";}
+		  if ($conf['add_cpst']) {$sec_sql .= ",acontent_subtitle";}
+		  if ($conf['add_cptximg']) {$sec_sql .= ",acontent_text";}
 		  $sec_sql .= " FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=$ai";
 		  $sec_sql .= " AND acontent_visible=1 AND acontent_trash=0";
 	
@@ -230,9 +231,9 @@ function make_cloud($matches) {
 	
 			 foreach($scd_result as $scd_row) {
 			 $allmycps .= $scd_row['acontent_html'].' ';
-			 $allmycps .= $scd_row['acontent_title'].' ';
-			 $allmycps .= $scd_row['acontent_subtitle'].' ';
-			 $allmycps .= $scd_row['acontent_text'].' ';
+			 if ($conf['add_cpt']) {$allmycps .= $scd_row['acontent_title'].' ';}
+			 if ($conf['add_cpst']) {$allmycps .= $scd_row['acontent_subtitle'].' ';}
+			 if ($conf['add_cptximg']) {$allmycps .= $scd_row['acontent_text'].' ';}
 			 }
 		  }
 	   }
