@@ -2,7 +2,17 @@
 /******************************************************************
 * TagCloud v2.3 for phpwcms --> v1.7.2 ++
 *
-* Date: Jun. 26, 2014 by Jensensen
+* Date: Jun. 26, 2014
+* #################################################################
+* @AUTHOR:		jensensen <jensensen2@gmail.com>
+* #################################################################
+* @copyright Copyright (c) 2008–2014 jensensen (jbr/LH/DE)
+* #################################################################
+* CONDITION:	FREE
+* LICENSE:		∀ |&#8704;| &forall;
+* LICENSE:		http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+* #################################################################
+* SUMMARY:
 * ==> RTFM: http://forum.phpwcms.org/viewtopic.php?f=8&t=16761
 *
 * Script returns <div MY_class>Your TagCloud here</div> only on pages
