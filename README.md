@@ -29,9 +29,9 @@ Author
 Copyright and license
 ---------------------
 
-Copyright 2008–2014 jensensen
+Copyright 2008–2015 jensensen
 
-This work - **tagcloud for phpwcms** by jensensen (jbr/LH/DE) - is 
+This work - **tagcloud for phpwcms** by jensensen (jbr/LH/DE) - is
 licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
 You may obtain a copy of the License in the LICENSE file, or at:
