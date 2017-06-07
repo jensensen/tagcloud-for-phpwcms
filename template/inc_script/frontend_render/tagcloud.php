@@ -6,7 +6,7 @@
 * #################################################################
 * @AUTHOR:		jensensen <jensensen2@gmail.com>
 * #################################################################
-* @copyright Copyright (c) 2008–2015 jensensen (jbr/LH/DE)
+* @copyright Copyright (c) 2008–2017 jensensen (jbr/LH/DE)
 * #################################################################
 * CONDITION:	FREE
 * LICENSE:		∀ |&#8704;| &forall;
