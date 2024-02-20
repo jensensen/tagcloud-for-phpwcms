@@ -1,12 +1,12 @@
 <?php
 /******************************************************************
-* TagCloud v2.3 for phpwcms --> v1.7.2 ++
+* TagCloud v2.3.1 for phpwcms --> v1.7.2 and v1.9.9 or v1.10.x
 *
-* Date: Jun. 26, 2014
+* Date: Feb. 20, 2024
 * #################################################################
 * @AUTHOR:		jensensen <jensensen2@gmail.com>
 * #################################################################
-* @copyright Copyright (c) 2008–2017 jensensen (jbr/LH/DE)
+* @copyright Copyright (c) 2008–2024 jensensen (jbr/LH/DE)
 * #################################################################
 * CONDITION:	FREE
 * LICENSE:		∀ |&#8704;| &forall;
@@ -96,18 +96,17 @@ $content['tagcloud'] = array(
 	// 'rw_alias'	=> 'page_alias',
 	// 'rw_alias'	=> '',
 	
+	//Characters to delete out of the cloud. Add more signs here, you want to delete or strip off.
+	'del_signs'		=> array(",", ".", ":", ";", "!", "?", "'s", "-", "[BR]", "'", "\"", "(", ")"),
 	
-	//charcters to delete out of the cloud
-	'del_signs'		=> array(",", ".", ":", ";", "!", "?", "'s", "-", "[BR]", "'", "(", ")"),
-	
-	// USE EITHER MODE EXCLUDE OR INCLUDE
+	// USE EITHER MODE EXCLUDE OR INCLUDE // This affects the result!
 	'inc_or_ex'		=> 0, 		// --> can be 0=exclude or 1=include
 	
-	// words to EXCLUDE from the cloud
+	// Result that matches above filters and settings. But you want to EXCLUDE these words from the cloud.
 	'exclude'		=> array("this", "that", "können", "oder", "auch", "eine"),
 	
-	// words to INCLUDE to the cloud
-	'include'		=> array("Lorem", "ipsum", "dolor", "amet", "sunt", "est", "häuslebauer", "ebit"),
+	// Even if the result matches above filters and settings, you ONLY want to INCLUDE these words to the cloud.
+	'include'		=> array("lorem", "ipsum", "dolor", "amet", "sunt", "häuslebauer", "ebit"),
 	
 	// Style and CSS settings
 	// class of div wrapped around the cloud
@@ -136,7 +135,7 @@ function make_cloud($matches) {
 	$setLP		= trim($matches[3]);
 	$landing	= isset($matches[4]) ? intval($matches[4]) : 0;
 
-	$conf = & $content['tagcloud'];
+	$conf =& $content['tagcloud'];
 
 	// check integrity of user_settings --- else use defaults +++ OG new style
 	if(empty($conf['min'])) {$conf['min'] = 4;}
@@ -255,7 +254,7 @@ function make_cloud($matches) {
 	/*****************************************************************
 	* add NEWS when set =1
 	*****************************************************************/
-	if ($conf['news_to_cloud'] == 1) {
+	if ($conf['news_to_cloud'] === 1) {
 	
 		$news_sql  = "SELECT SQL_CACHE cnt_title, ";
 		$news_sql .= "cnt_subtitle, cnt_teasertext, cnt_text";
@@ -263,7 +262,7 @@ function make_cloud($matches) {
 		$news_sql .= " AND cnt_livedate < NOW() AND cnt_killdate > NOW()";
 	
 		$news_result = _dbQuery($news_sql);
-		
+	
 		foreach($news_result as $news_row) {
 			$newscontent .= $news_row['cnt_title'].' ';
 			$newscontent .= $news_row['cnt_subtitle'].' ';
@@ -273,7 +272,6 @@ function make_cloud($matches) {
 		//article content plus news
 		$tagtext = $tagtext . $newscontent;
 	}
-	
 	
 	/*****************************************************************
 	and do some convertions
@@ -296,7 +294,7 @@ function make_cloud($matches) {
 		case '0':
 			foreach($anzahl as $key => $tagword) {
 				if($tagword >= $conf['min'] && (!in_array($key, $conf['exclude']))) { //look if the word counts the required minimum and is not in the exclude list
-					if (strlen($key) >= $conf['min_chars']) { //ignore words on web site that are NOT longer than (chief inspector even longer) defined in: var min_chars
+					if (strlen($key) >= $conf['min_chars']) { //ignore words that are NOT longer than (chief inspector even longer) defined in: var min_chars
 						$tags[$key] = $tagword; //put them in a new array
 					} // else { $this_word_out[$key] = $tagword; }
 				}
@@ -305,8 +303,8 @@ function make_cloud($matches) {
 	
 		case '1':
 			foreach($anzahl as $key => $tagword) {
-				if($tagword >= $conf['min'] && (in_array($key, $conf['include']))) { //look if the word counts the required minimum and is not in the exclude list
-					if (strlen($key) >= $conf['min_chars']) { //ignore words on web site that are NOT longer than (chief inspector even longer) defined in: var min_chars
+				if($tagword >= $conf['min'] && (in_array($key, $conf['include']))) { //look if the word counts the required minimum and is in the include list
+					if (strlen($key) >= $conf['min_chars']) { //ignore words that are NOT longer than (chief inspector even longer) defined in: var min_chars
 						$tags[$key] = $tagword; //now put them in a new array
 					} // else { $this_word_out[$key] = $tagword; }
 				}
@@ -316,7 +314,6 @@ function make_cloud($matches) {
 		default:
 		break;
 	}
-	
 	
 	if(!empty($tags)){
 	   //unset($tags['phpwcms']); //if you want to override the value of words (in this case 'phpwcms'), uncomment it and put in your word
@@ -348,7 +345,7 @@ function make_cloud($matches) {
 			 break;
 		  }
 	
-		  // FULL BLOWN CLOUDS LIKE HORNBLOWER
+		  // FULL BLOWN CLOUDS, LIKE HORNBLOWER WOULD HAVE LOVED.
 		  $tag_cloud = '<div class="'. $conf['class'] .'">';
 			 foreach($tags as $key => $tagword) {
 				$key = html_specialchars($key);
@@ -381,4 +378,3 @@ if(!empty($content["all"]) && !(strpos($content["all"],'{TAGCLOUD:')===false)) {
 	$block['css']['tagcloud'] = 'specific/tagcloud.css';
 }
 
-?>
